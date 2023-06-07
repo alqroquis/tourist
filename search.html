@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+    <head>
+        <LINK REL="stylesheet" TYPE="text/css" HREF="site.css">
+        <meta charset="UTF-8">
+        <title>Туристическая компания "Кит"</title>
+    </head>
+    <body>
+        <header>
+            <nav>     
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu"><img src="menu.png" width="5%"></label> 
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="search.html">Маршруты</a></li>
+                    <li><a href="seat.html">Места для посещения</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                </ul>
+            </nav>
+                  
+        </header>
+        <div class="logo">
+            <img class="logo-img" src="kit.png">
+        </div>
+        
+        <div  class="title">
+            <h2>Подходящие маршруты</h2>
+        </div>
+        <div class="align">
+            <div class="results">
+                <div class="demo" id="demo"></div>
+            </div>
+        </div>
+        
+        
+        <script>
+            class RestZone {
+                constructor(region, name, description, first_date, last_date, count, level,trip,trip_name, trip_description, image, id) {
+                    this.region = region;
+                    this.name = name;
+                    this.description = description;
+                    this.first_date = first_date;
+                    this.last_date = last_date;
+                    this.count = count;
+                    this.level = level;
+                    this.trip = trip;
+                    this.trip_name = trip_name;
+                    this.trip_description = trip_description;
+                    this.image = image;
+                    this.id = id;
+                }
+                show(element) {
+                    document.getElementById(element).innerHTML += this.toString();
+                }
+
+                toString() {
+                    
+                    return  `<div class="results-item"><p>${this.image}<p><div class="search-item-text"><h2>${this.region}</h2><br><h1><b>${this.name}</b></h1><br><p><b> Начало тура:</b> ${this.first_date.toLocaleDateString()}</p>
+                            <p><b>Окончание тура:</b> ${this.last_date.toLocaleDateString()}</p><br><p><b>Максимальное количество участников:</b><br>${this.count}</p><br>
+                            <p><b>Уровень сложности:</b><br> ${this.level}</p><br>
+                            <p><br>${this.description}</p>
+                            <div class="choice-align"><p><input type="submit" class="choice" id=${this.trip} onclick="myFunction(this)" value="Выбрать"></p></div></div></div>`
+                    
+                    
+                            
+                }
+            
+            }
+            class EmbeddedDataBase {
+                RestList = [];
+                constructor() { }
+                append(RestZone) {
+                    this.RestList.push(RestZone);
+                }
+                
+                search(currentLocation, region, first_date, last_date, count, level) {
+                    var searchlist;
+                    searchlist = this.RestList.filter(a => a.region.includes(region))
+                    searchlist = searchlist.filter(a => a.first_date >= first_date)
+                    searchlist = searchlist.filter(a => a.last_date <= last_date)
+                    searchlist = searchlist.filter(a => a.count >= count)
+                    searchlist = searchlist.filter(a => a.level.includes(level))
+                    
+                    return searchlist;
+                }
+                search_full(){
+                    var searchlist;
+                    searchlist = this.RestList.sort();
+                    return searchlist;
+                }
+                search_by_id(id){
+                    return this.RestList.find(a => a.id.includes(id))
+                }
+            }
+            var element;// = document.getElementById("myBtn")
+            const urlParams = new URLSearchParams(window.location.search);
+
+            const zone3 = new RestZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Базовый", "ruskeala", '', '', '<img class="image" src="karsearch.jpeg" width=100%">', 'ruskeala');
+            const zone4 = new RestZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya",'','', '<img class="image" src="shuyasearch.jpeg" width=100%">', "shuya");
+
+            const zoneList = new EmbeddedDataBase();
+            
+            zoneList.append(zone3);
+            zoneList.append(zone4);
+            
+
+            addEventListener("load", function () {
+                var currentLocation = decodeURI(window.location.href);
+                if (currentLocation.includes('?')){
+                    var region = decodeURI(urlParams.get("region").toString());
+                    var first_date = new Date(decodeURI(urlParams.get("first_date")));
+                    var last_date = new Date(decodeURI(urlParams.get("last_date")));
+                    var count = decodeURI(urlParams.get("count").toString());
+                    var level = decodeURI(urlParams.get("level").toString());
+                    var zone = zoneList.search(currentLocation, region, first_date, last_date, count, level);
+                
+                    if (zone.length == 0){
+                        var massage = "По вашему запросу нет подходящих маршрутов"
+                        document.getElementById("demo").innerHTML += massage;
+                    }
+                    else {
+                        zone.forEach(e => e.show("demo"));
+                    }
+                }   
+                else {
+                    var zone = zoneList.search_full();
+                    if (zone != undefined) {
+                        zone.forEach(e => e.show("demo"));
+                    }
+                   
+                        }
+                }
+                
+            )
+            
+            function myFunction(element) {
+                // alert(element.id);
+                var zone = zoneList.search_by_id(element.id);
+                // alert(zone.name);
+                window.location.href = `seat.html?region=${zone.region}&first_date=${zone.first_date.toLocaleDateString()}&last_date=${zone.last_date.toLocaleDateString()}&count=${zone.count}&level=${zone.level}&trip=${zone.trip}`;
+            }
+            // var choicebtn = document.getElementById(`${this.id}`);
+            // choicebtn.addEventListener("click", () => {
+            //     window.location.href = `seat.html?region=${region}&first_date=${first_date}&last_date=${last_date}&count=${count}&level=${level}&trip=${this.id}`
+
+            // });
+        </script>
+        
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-item">
+                        <h6>Кит Сервис. Исполнить мечты - просто!</h6><br>
+                        <p class="text-justify">Предлагаем Вам множество увлекательных туров по России и зарубежью, 
+                            подберем для Вас лучшие варианты отдыха, организуем для Вас индивидуальные или 
+                            групповые классические и экскурсионные туры.</p>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Контакты</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="tel:+74232758572">+7 (423) 275-8-572</a></li>
+                            <li><a href="mailto:studio_kiss@mail.ru">studio_kiss@mail.ru</a></li>
+                            <li><a>г.Владивосток, ул. Калинина 275В, ТЦ "Зеленый Остров" 2-ой корпус, 6 этаж</a>
+                            </li>
+                            <li><a>Ежедневно: 9:00 - 19:00</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Ищите нас в соцсетях</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="https://www.instagram.com/studio_kiss_vdk/">Instagram</a></li>
+                            <li><a href="https://vk.com/studio_kiss_vdk">VK</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCE2nvN2hpGxqrQF68eJjTDQ">Youtube</a></li>
+                            <li><a href="https://t.me/school_studiokiss">Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </footer>
+        
+    </body>
+</html>

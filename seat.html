@@ -1,0 +1,251 @@
+<html>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="site.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>Туристическая компания "Кит"</title>
+    </head>
+    <body>
+        <header>
+            <nav>     
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu"><img src="menu.png" width="5%"></label> 
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="search.html">Маршруты</a></li>
+                    <li><a href="seat.html">Места для посещения</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                </ul>
+            </nav>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+                *,
+                *:before,
+                *:after {
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    padding:0;
+                    margin:0;
+                    font-family: 'Raleway', sans-serif;
+                    z-index: 6;
+                }
+                nav{
+                    position:fixed;
+                    top:50px;
+                    top: 0;
+                    left: 0;
+                    width: 100%;  
+                    text-align: right;
+                    background-color: #fff;
+                    
+                }
+                nav ul {
+                    padding: 2%;
+                }
+                nav li{
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                nav a{
+                    color:rgb(44, 44, 44) ;
+                    padding: 5px 10px;
+                    text-decoration: none;
+                    border: 1px solid transparent;
+                    transition: 0.3s;
+                }
+                nav a:hover{
+                    color: white;
+                    background-color: rgb(109, 158, 243) ;
+                    border-radius: 15px;
+                }
+                nav a:active{
+                    color: white;
+                    background-color: rgb(81, 83, 217);
+                    border-radius: 15px;
+                }
+                input[type="checkbox"] {
+                    display: none;
+                }
+                nav label {    
+                    display: none;
+                    border: 1px solid #fff;   
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                nav label:hover{
+                    background-color: rgb(109, 158, 243)  ;
+                }
+
+
+                @media (max-width: 700px) {
+                    
+                    nav label{
+                        display: inline-block;
+                        background-color: white;
+                    }
+                    nav > ul {
+                        display: none;
+                    }
+                    input[type="checkbox"]:checked ~ label + ul {
+                        display: block;
+                        font-size: 13;
+                        background-color: white;
+                    }
+                    
+                }
+            </style>            
+        </header>
+        <div class="logo">
+            <img class="logo-img" src="kit.png">
+        </div>
+        <div  class="title">
+            <h2>Вы можете спланировать программу тура самостоятельно, выбрав понравившиеся зоны маршрута.</h2><br>
+            
+        </div>
+        <div class="results">
+            <div class="demo" id="demo"></div>
+            <div class="image-container"></div>
+        </div>
+        
+        <script>
+            class ChoiceZone {
+                constructor(region, name, description, first_date, last_date, count, level, trip, trip_name, trip_zone, trip_description, image1, image2, image3, id) {
+                    this.region = region;
+                    this.name = name;
+                    this.description = description;
+                    this.first_date = first_date;
+                    this.last_date = last_date;
+                    this.count = count;
+                    this.level = level;
+                    this.trip = trip;
+                    this.trip_name = trip_name;
+                    this.trip_zone = trip_zone;
+                    this.trip_description = trip_description;
+                    this.image1 = image1;
+                    this.image2 = image2;
+                    this.image3 = image3;
+                    this.id = id;
+                }
+                show(element) {
+                    document.getElementById(element).innerHTML += this.toString();
+                }
+
+                toString() {
+                    return `<div class="results-item"><div class="search-item-text"><h1><b>${this.trip_name}</b></h1><br>
+                            <div class="seat-item"><p><b>Главные места маршрута: </b> ${this.trip_zone}</p><p><br><br><p>${this.trip_description}</p></div>
+                            <div class="seat-image-box">${this.image1}${this.image2}${this.image3}</div>
+                            <p><div class="choice-align"><input type="submit" class="choice" id=${this.id} onclick="myFunction(this)" value="Выбрать"></p></div></div></div>`    
+                }
+            
+            }
+            class ZoneDataBase {
+                ZoneList = [];
+                constructor() { }
+                append(ChoiceZone) {
+                    this.ZoneList.push(ChoiceZone);
+                }
+                
+                search(trip) {
+                    var searchlist;
+                    searchlist = this.ZoneList.filter(a => a.trip.includes(trip))
+                    console.log(searchlist)
+                    return searchlist
+                
+                }
+                search_full(trip){
+                    var searchlist;
+                    searchlist = this.ZoneList.sort();
+                    return searchlist;
+                }
+                search_by_id(id){
+                    return this.ZoneList.find(a => a.id.includes(id))
+                }
+            }
+            var element;
+            const urlParams = new URLSearchParams(window.location.search);
+            //База маршрутов
+            
+            //const zone1 = new ChoiceZone("Ленинградская область", "«Природа Выборга»", '', new Date('2023-05-10'), new Date('2023-06-10'), 5, "Пешие экскурсии", "viborg", '', '', '', 'viborg_light');
+            const zone3 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Туристический поход", "ruskeala", "Для тех, кто устал сидеть дома" , 'Приозерск (крепость Корела), горный парк "Рускеала" ', '<b>Средневековая Корела</b> - главная достопримечательность города Приозерска. Она была построена в 13 веке новгородцами на острове, посреди порожистой живописной реки Вуоксы.</p> <p><b>В горном парке</b> Вас ожидает знакомство с парком, где вы увидите потаенные уголки бывшего мраморного карьера, пройдете по таинственным штольням и штрекам. Здесь создана инфраструктура для пеших прогулок и самого разнообразного отдыха. Искусственно затопленная территория карьера восхищает, а уникальный горный парк манит путешественников мерцанием мраморных утесов в изумрудной глади озера и живописными эко-тропами</p>', '<img class="seat-image" src="priozersk.jpeg" width="100%">', '<img class="seat-image" src="ruskeala.jpeg" width="100%">' , '<img class="seat-image" src="ruskealakanion.jpeg" width="100%">' , 'ruskeala_light');
+            const zone4 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Туристический поход", "ruskeala", "Для тех, кто хочет немного больше" , 'Крепость Корела, Лютеранская кирха Лахденпохья и водопады Ахвенкоски ', '<p>С лютеранской <b>кирхой в г. Лахденпохья</b> мы познакомимся в ходе трассовой экскурсии. Когда-то это был самый большой лютеранский храм в Карелии, освященный в 1851 году.</p><p><b>Ахвенкоски</b> — это великолепный комплекс, состоящий из четырех водопадов, расположенный в месте разлива реки Тохмайоки. Их высота составляет в среднем 3-4 метра. У водопадов разное настроение — каменистые перекаты с хаотичными валами и классические, круто падающие локальные спуски впечатляют всех, кто приходит к ним.</p>', '<img class="seat-image" src="ruskealakorela.jpeg" width="100%">', '<img class="seat-image" src="karelianfall.jpeg" width="100%">', '<img class="seat-image" src="ruskealakirha.jpeg" width="100%">', 'ruskeala_medium');
+            const zone5 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Туристический поход", "ruskeala", "Для настоящих путешественников" ,  'Крепость Корела, Лютеранская кирха Лахденпохья и водопады Ахвенкоски, горный парк Рускеала и Сортавала', '<p>Горный парк «Рускеала» — туристическая мекка, появившаяся на месте заброшенного мраморного месторождения. Это рукотворный памятник великому труду горных мастеров, окруженный первозданной карельской природой и хранящий трехвековую историю взаимодействия человека и камня.</p><p><b>Мраморный каньон</b> замечательно подходит для знакомства с парком. Гостей ждёт главная локация парка - мраморные склоны каньона. Пройдите в "Сухой штольне" и наглядно познакомьтесь с историей горного дела. На маршруте открыта мастерская по камнеобработке. Гости могут наблюдать за работой мастера и приобрести авторские сувениры.</p>', '<img class="seat-image" src="" width="100%">', '<img class="seat-image" src="" width="100%">', '<img class="seat-image" src="" width="100%">', 'ruskeala_strong');
+            const zone = new ChoiceZone("", )
+            //Shuya
+            const zone6 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для тех, кто устал сидеть дома" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово и ночевка в палатках', '<p>Встреча на ж/д вокзале г. Петрозаводска и отправление на автобусе на нашу «полянку» (28 км), где упаковываем личные вещи по гермомешкам, подбираем экипировку, проходим инструктаж и немного перекусим. Далее едем ещё 35 км до д. Киндасово, перед выходом на воду ещё один технический инструктаж и вперёд! Небольшое тренировочное занятие уже на воде. В этот день можно освоить технику гребли т. к. по ходу встретится всего один несложный порог, после нескольких километров стоянка, ужин у костра, ночёвка в палатках</p>', '<img class="seat-image" src="shuya11.jpeg" width="100%">', '<img class="seat-image" src="shuya12.jpeg" width="100%">', '<img class="seat-image" src="shuya13.jpeg" width="100%">', 'shuya_light');
+            const zone7 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для тех, кто хочет немного больше" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово, ночевка в палатках и преодоление сложных порогов на второй день путешествия', '<p>Начинаются хорошие пороги (верхняя и нижняя «Площадка» (1 к. с.), 2-километровый порог «Юманишки» 1 к. с.), через 1 км самый главный порог «Большой Толли» (2 к. с.) в пос. Матросы, на котором будем кататься, пока губы не посинеют. Перекус. До финиша 5 км и 1 порог.В 17:00 подъедет автобус и отвезёт на ж/д вокзал г. Петрозаводска.</p>', '<img class="seat-image" src="shuya21.jpeg" width="100%">', '<img class="seat-image" src="shuya22.jpeg" width="100%">', '<img class="seat-image" src="shuya23.jpeg" width="100%">', 'shuya_medium');
+            const zone8 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для настоящих путешественников" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово, ночевка в палатках, преодоление сложных порогов на второй день путешествия и настоящая финская баня', '<p>Маршрут включает в себя не только тренинг и сложные пороги, но и прекрасное завершение такого речного путешествия - походом в финскую баню! Возвращение домой переносится с 17:00 на 21:00</p>', '<img class="seat-image" src="shuya31.jpeg" width="100%">', '<img class="seat-image" src="shuya32.jpeg" width="100%">', '<img class="seat-image" src="shuya33.jpeg" width="100%">', 'shuya_strong');
+
+            const zoneList = new ZoneDataBase();
+            //Ruskeala
+            zoneList.append(zone3);zoneList.append(zone4);zoneList.append(zone5);
+            //Shuya
+            zoneList.append(zone6);zoneList.append(zone7);zoneList.append(zone8);
+            
+            addEventListener("load", function () {
+                var currentLocation = decodeURI(window.location.href);
+                    
+                if (currentLocation.includes('?')){
+                    var trip = decodeURI(urlParams.get("trip").toString());
+                    var zone = zoneList.search(trip);
+                
+                    if (zone.length == 0){
+                        var message = "По вашему запросу нельзя выбрать зоны отдыха";
+                        document.getElementById("demo").innerHTML += message;
+                    }
+                    else if (zone != undefined) {
+                        zone.forEach(e => e.show("demo"));
+                    }
+                }   
+                else {
+                    var zone = zoneList.search_full();
+                    if (zone != undefined) {
+                        zone.forEach(e => e.show("demo"));
+                    }
+                   
+                        }
+                }
+                )
+                
+                function myFunction(element) {
+                // alert(element.id);
+                var zone = zoneList.search_by_id(element.id);
+                // alert(zone.name);
+                window.location.href = `booking.html?region=${zone.region}&first_date=${zone.first_date.toLocaleDateString()}&last_date=${zone.last_date.toLocaleDateString()}&count=${zone.count}&level=${zone.level}&trip=${zone.trip}&zoneid=${zone.id}`;
+               }   
+            
+        </script>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-item">
+                        <h6>Кит Сервис. Исполнить мечты - просто!</h6><br>
+                        <p class="text-justify">Предлагаем Вам множество увлекательных туров по России и зарубежью, 
+                            подберем для Вас лучшие варианты отдыха, организуем для Вас индивидуальные или 
+                            групповые классические и экскурсионные туры.</p>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Контакты</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="tel:+74232758572">+7 (423) 275-8-572</a></li>
+                            <li><a>Ежедневно: 9:00 - 19:00</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Ищите нас в соцсетях</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="https://www.instagram.com/studio_kiss_vdk/">Instagram</a></li>
+                            <li><a href="https://vk.com/studio_kiss_vdk">VK</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCE2nvN2hpGxqrQF68eJjTDQ">Youtube</a></li>
+                            <li><a href="https://t.me/school_studiokiss">Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </footer>
+        
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>Поиск по жопам</title>
+</head>
+
+<body>
+    
+    <p id="demo"></p>
+
+    <script>
+        class RestZone {
+            constructor(region, name, first_date, last_date, participantCount, participantLevel) {
+                this.region = region;
+                this.name = name;
+                this.first_date = first_date;
+                this.last_date = last_date;
+                this.participantCount = participantCount;
+                this.participantLevel = participantLevel;
+            }
+            show(element){
+                document.getElementById(element).innerHTML += this.toString();
+            }
+            toString(){ 
+                return this.region + ";" + this.first_date +  ";" + this.last_date +  ";" + this.participantCount + ";" + this.participantLevel+"<br>";
+            }
+        }
+        class EmbeddedDataBase {
+            RestList = [];
+            constructor(){}
+            append(RestZone){
+                this.RestList.push(RestZone);
+            }
+            search(region, first_date, last_date){
+                var searchlist = this.RestList.filter(a =>a.region.includes(region))
+                searchlist = searchlist.filter(a => a.first_date >= first_date)
+                searchlist = searchlist.filter(a => a.last_date <= last_date)
+                return searchlist
+            }
+        }
+        var element;// = document.getElementById("myBtn")
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const zone1 = new RestZone("Ленинградская область", "«Дворцы Петербурга и их владельцы»", new Date('2023-05-10'), new Date('2023-06-10'), 5, "Нормальный уровень");
+        const zone2 = new RestZone("Валдай", new Date('August 19').toTimeString(), 2 , 12, "Супер сложно");
+        const zone3 = new RestZone("Карелия", new Date('May 1').toTimeString(), 2 , 12, "Супер сложно");
+
+        const zoneList = new EmbeddedDataBase();
+        zoneList.append(zone1);
+        zoneList.append(zone2);
+        zoneList.append(zone3);
+
+        addEventListener("load", function () {
+            var region = decodeURI(urlParams.get("region").toString());
+            var first_date = new Date(decodeURI(urlParams.get("first_date")));
+            var last_date = new Date (decodeURI(urlParams.get("last_date")));
+            var zone = zoneList.search(region, first_date, last_date);
+            if(zone != undefined){
+                zone.forEach(e => e.show("demo"));
+            }
+            else{
+
+            }
+            // document.getElementById("demo").innerHTML = "Hello World";
+
+            // for (const p of urlParams) {
+            //     console.log(p);
+            // }
+
+
+        });
+    </script>
+</body>
+
+</html>
+
+<!--  Форма поиска. Должна содержать следующие поля ввода: 
+ Выбор региона; 
+ Предполагаемые даты отдыха; 
+ Количество участников и их уровень подготовки; 
+ Кнопка «Поиск».  -->

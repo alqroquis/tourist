@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<LINK REL="stylesheet" TYPE="text/css" HREF="site.css">
+<head>
+        <meta charset="UTF-8">
+        <title>Туристическая компания "Кит"</title>
+    </head>
+    <body>
+        <header>
+            <nav>     
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu"><img src="menu.png" width="5%"></label> 
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="search.html">Маршруты</a></li>
+                    <li><a href="seat.html">Места для посещения</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                </ul>
+            </nav>
+                       
+        </header>
+        <div class="logo">
+            <img class="logo-img" src="kit.png">
+        </div>
+        <style>
+            .logo{
+                top:0;
+                position: fixed;
+                text-align: left;
+            }
+            .logo-img{
+                width: 7%;
+                margin-left: 3%;
+                margin-right: 0;
+            }
+            @media (max-width: 1000px) {
+                .logo-img{
+                display: none;
+            }
+        }
+        </style>
+        <div class="banner">
+            <div class="back">
+                <h2>Акции сезона</h2>
+                <div class="sale-item">
+                    <img class="img-sale" src="apple.jpeg">
+                    <h3>Майские праздники</h3>
+                    <div class="sale-text">
+                        <p>
+                            Поездка в Санкт-Петербург в мае позволит застать Северную столицу в один из ее лучших периодов: ночи уже светлеют, открыта навигация по рекам, каналам и Неве с разводными мостами, выставки, музеи, театры и концертные площадки радуют экспозициями и премьерами.
+                        <br><br><br></p>
+                    </div>
+                </div>
+                <div class="sale-item">
+                    <img class="img-sale" src="baidarka.jpeg">
+                    <h3>Подготовка к байдарочному сезону</h3>
+                    <div class="sale-text">
+                        <p>
+                            Река Оредеж протекает на юге-западе Ленинградской области. Для маршрутов выходного дня на байдарках и SUP-бордах представляет интерес верхнее течение Оредежа от посёлка Сиверский до Вырицы, где скорость и глубина реки дают возможность почувствовать драйв динамичного и в то же время безопасного сплава
+                        </p>
+                    </div>
+                </div>
+                <div class="sale-item">
+                    <img class="img-sale" src="kid.jpeg">
+                    <h3>Для самых маленьких</h3>
+                    <div class="sale-text">
+                        <p>
+                            Спланируем ваши выходные с учетом возраста ребенка и его интересов, длительности поездки, и, конечно, планируемого бюджета. Юным путешественникам предлагаем автобусные, водные, пешеходные и интерактивные экскурсии, квесты, веревочные парки.
+                        <br><br><br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            
+        </style>
+        <div class="search-class">
+            <form>
+                <h2>Хотите найти что-то конкретное?</h2><br>
+                <div class="just"><p>Клиенты туристической компании «КИТ Сервис» имеют возможность заказать 
+                    организацию туристического отдыха по одному из предоставленных маршрутов. 
+                    Мы берем на себя обязанность по полному расчету отдыха, с учетом всех ваших пожеланий.
+                </p></div>
+                <br>
+                <h3>Чтобы воспользоваться услугами компании необходимо:</h3>
+                <div class="num">
+                    <img src="num1.png" width="150px">
+                </div>
+                <div class="num1">
+                    <div class="num1-item">
+                        <label for="first-date"><b>Выбрать дату начала путешествия:</b></label>
+                        <input class="date" type="date" id="first-date" name="first-date">
+                    </div>
+                    <div class="num1-item">
+                        <label for="last-date"><b>А также дату окончания:</b></label><br>
+                        <input class="date" type="date" id="last-date" name="last-date">
+                    </div>
+                </div>
+                <div class="num">
+                    <img src="num2.png" width="150px">
+                </div>
+                <div class="num1">
+                    <div class="num1-item">
+                        <label for="region"><b>Выбрать направление:</b></label><br>
+                        <select id="reg" class="region">
+                            <option></option>
+                            <option>Ленинградская область</option>
+                            <option>Карелия</option>
+                            <option>Байкал</option>
+                            <option>Камчатка</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="num">
+                    <img src="num3.png" width="150px">
+                </div>
+                <div class="num1">
+                    <div class="num1-item">
+                        <label for="amount"><b>Указать количество человек в группе:</b></label><br><br>
+                        <form> 
+                            <input type="text" id ="count" name="text" class="amount" placeholder="Размер группы не более 50 человек">
+                        </form>
+                    </div>
+                </div>
+                <div class="num">
+                    <img src="num4.png" width="150px">
+                </div>
+                <div class="num1">
+                    <div class="num1-item">
+                        <label for="level"><b>Указать уровень туристической подготовки группы:</b></label><br><br>
+                        <select id="level" class="region">
+                            <option></option>
+                            <option>Базовый</option>
+                            <option>Легкий</option>
+                            <option>Средний</option>
+                            <option>Для экстрималов</option>
+                        </select>
+                        <br>
+                        <input type="submit" id="searchbtn" class="submit" value="Найти предложения">
+                    </div>
+                </div>
+                <button></button>
+            </form>
+            <script>
+
+                var fist_date;
+                document.getElementById("first-date").addEventListener("change", function() {
+                    first_date = this.value;
+                    console.log(first_date); //e.g. 2015-11-13
+                });
+                var last_date;
+                document.getElementById("last-date").addEventListener("change", function() {
+                    last_date = this.value;
+                    console.log(last_date); //e.g. 2015-11-13
+                });  
+                var region;
+                document.getElementById("reg").addEventListener("change", function() {
+                    region = this.value;
+                    console.log(region); //e.g. 2015-11-13
+                });  
+                var count;
+                document.getElementById("count").addEventListener("change", function() {
+                    count = this.value;
+                    console.log(count); //e.g. 2015-11-13
+                }); 
+                var level;
+                document.getElementById("level").addEventListener("change", function() {
+                    level = this.value;
+                    console.log(level); //e.g. 2015-11-13
+                }); 
+
+                var element = document.getElementById("searchbtn");
+                element.addEventListener("click", () => {
+                    window.location.href = `search.html?region=${region}&first_date=${first_date}&last_date=${last_date}&count=${count}&level=${level}`
+
+                })
+            </script>
+        </div>
+       
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-item">
+                        <h6>Кит Сервис. Исполнить мечты - просто!</h6><br>
+                        <p class="text-justify">Предлагаем Вам множество увлекательных туров по России и зарубежью, 
+                            подберем для Вас лучшие варианты отдыха, организуем для Вас индивидуальные или 
+                            групповые классические и экскурсионные туры.</p>
+                    </div>
+    
+                    <div class="col-item">
+                        <h6>Контакты</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="tel:+74232758572">+7 (423) 275-8-572</a></li>
+                            <li><a href="mailto:studio_kiss@mail.ru">studio_kiss@mail.ru</a></li>
+                            <li><a>г.Владивосток, ул. Калинина 275В, ТЦ "Зеленый Остров" 2-ой корпус, 6 этаж</a>
+                            </li>
+                            <li><a>Ежедневно: 9:00 - 19:00</a></li>
+                        </ul>
+                    </div>
+    
+                    <div class="col-item">
+                        <h6>Ищите нас в соцсетях</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="https://www.instagram.com/studio_kiss_vdk/">Instagram</a></li>
+                            <li><a href="https://vk.com/studio_kiss_vdk">VK</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCE2nvN2hpGxqrQF68eJjTDQ">Youtube</a></li>
+                            <li><a href="https://t.me/school_studiokiss">Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </footer>
+        
+    </body>
+</html>

@@ -1,0 +1,462 @@
+<html>
+    <head>
+        <LINK REL="stylesheet" TYPE="text/css" HREF="site.css">
+        <meta charset="UTF-8">
+        <title>Туристическая компания "Кит"</title>
+    </head>
+    <body>
+        <header>
+            <nav>     
+                <input type="checkbox" name="menu" id="btn-menu" />
+                <label for="btn-menu"><img src="menu.png" width="5%"></label> 
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="search.html">Маршруты</a></li>
+                    <li><a href="seat.html">Места для посещения</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                </ul>
+            </nav>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+                *,
+                *:before,
+                *:after {
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    padding:0;
+                    margin:0;
+                    font-family: 'Raleway', sans-serif;
+                    z-index: 6;
+                }
+                nav{
+                    position:fixed;
+                    top:50px;
+                    top: 0;
+                    left: 0;
+                    width: 100%;  
+                    text-align: right;
+                    background-color: #fff;
+                    
+                }
+                nav ul {
+                    padding: 2%;
+                }
+                nav li{
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                nav a{
+                    color:rgb(44, 44, 44) ;
+                    padding: 5px 10px;
+                    text-decoration: none;
+                    border: 1px solid transparent;
+                    transition: 0.3s;
+                }
+                nav a:hover{
+                    color: white;
+                    background-color: rgb(109, 158, 243) ;
+                    border-radius: 15px;
+                }
+                nav a:active{
+                    color: white;
+                    background-color: rgb(81, 83, 217);
+                    border-radius: 15px;
+                }
+                input[type="checkbox"] {
+                    display: none;
+                }
+                nav label {    
+                    display: none;
+                    border: 1px solid #fff;   
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                nav label:hover{
+                    background-color: rgb(109, 158, 243)  ;
+                }
+
+
+                @media (max-width: 700px) {
+                    
+                    nav label{
+                        display: inline-block;
+                        background-color: white;
+                    }
+                    nav > ul {
+                        display: none;
+                    }
+                    input[type="checkbox"]:checked ~ label + ul {
+                        display: block;
+                        font-size: 13;
+                        background-color: white;
+                    }
+                    
+                }
+            </style>            
+        </header>
+        <div class="logo">
+            <img class="logo-img" src="kit.png">
+        </div>
+        
+        <div class="upper-bron">
+            <div class="bron">
+                <div  class="title">
+                    <h1>Бронирование</h1><br>
+                    <h2>Проверьте введенные данные </h2>
+                </div>
+                <div class="results">
+                    <div class="demo" id="demo"></div>
+                </div>
+                    
+                    <h2>Дополнительные услуги:</h2>
+                    
+                    <div class="services">
+                        <p><input type="radio" id="gid" name="radio" onclick="radioClick(this)">
+                        <label for="gid">Услуги проводника</label></p>
+
+                        <p><input type="radio" id="equipment" name="radio" onclick="radioClick(this)">
+                        <label for="equipment">Аренда туристического снаряжения</label></p>
+
+                        <p><input type="radio" id="photo" name="radio" onclick="radioClick(this)">
+                        <label for="photo">Услуги фотографа/видеооператора</label></p>
+
+                        <p><input type="radio" id="insurance" name="radio" onclick="radioClick(this)">
+                        <label for="insurance">Страхование от несчастных случаев </label></p>
+                    </div>
+                        
+                    </p>
+                    <h2>Итоговая стоимость:</h2>
+                    <h3>На одного человека</h3>
+                    <div class="services">
+                        <div class="price" id="price"></div>
+                    </div>
+                    <div class="choice-align">
+                        <input type="submit" class="choice" id="" onclick="myFunction()" value="Забронировать">
+                    </div>   
+                    </div>
+            </div>
+        </div>
+        
+        
+        <style>
+            .upper-bron{
+                
+                text-align: center;
+                width:100%;
+            }
+            .bron{
+                background-color: rgba(74, 50, 211, 0.796);
+                margin: 3%;
+                border-radius: 25px;
+            }
+            .demo{
+                margin: 1%;
+                color: #fff;
+               
+            }
+            .results{
+                width:100%;
+                text-align: center;
+                
+            }
+            .results-item{
+                margin-top: 1%;
+                width: 40%;
+                text-align: left;
+                background-color: #fff;
+                color:rgb(44, 44, 44);
+                border-radius: 25px;
+                margin: 1%;
+                display: inline-block;
+                padding: 2%;
+            }
+            .price{
+                background-color: white;
+                border-radius: 25px;
+                font-size: 20px;
+                text-align: center;
+            }
+            h2, h3, h1{
+                color: white;
+            }
+            .title{
+                margin-top: 6%;
+                padding-top: 2%;
+                text-align: center;
+                color: #fff;
+            }
+            .services{
+                margin-top: 2%;
+                width: 40%;
+                text-align: left;
+                background-color: #fff;
+                color:rgb(44, 44, 44);
+                border-radius: 25px;
+                margin: 1%;
+                display: inline-block;
+                padding: 2%;
+            }
+            .choice{
+                width: 200px;
+                background-color: rgb(218, 218, 242);
+                color:#2a2828;
+                border-radius: 25px;
+                display: inline-block;
+                vertical-align: top;
+                margin: 2%;
+                padding: 0.5%;
+            }
+            .choice:hover{
+                color: white;
+                background-color: rgb(113, 191, 227) ;
+                border-radius: 25px;
+            }
+            .choice:active{
+                color: white;
+                background-color: rgb(40, 130, 233) ;
+                border-radius: 25px;
+            }
+            
+        </style>
+        <script>
+            var check1,check2;
+            function radioClick(c) {
+                if (check1 != c) {
+                    check2 = 0;
+                    check1 = c
+                }
+                check2 ^= 1;
+                c.checked = check2
+            }
+            class ChoiceZone {
+                constructor(region, name, description, first_date, last_date, count, level, trip, trip_name, trip_zone, trip_description, image1, image2, image3, id, price) {
+                    this.region = region;
+                    this.name = name;
+                    this.description = description;
+                    this.first_date = first_date;
+                    this.last_date = last_date;
+                    this.count = count;
+                    this.level = level;
+                    this.trip = trip;
+                    this.trip_name = trip_name;
+                    this.trip_zone = trip_zone;
+                    this.trip_description = trip_description;
+                    this.image1 = image1;
+                    this.image2 = image2;
+                    this.image3 = image3;
+                    this.id = id;
+                    this.price = price;
+                }
+                show(element) {
+                    document.getElementById(element).innerHTML += this.toString();
+                }
+                showprice(element){
+                    document.getElementById(element).innerHTML += this.price ;
+                    
+                }
+
+                toString() {
+                    return `<div class="results-item"><p><b>Регион: </b>${this.region}</p><br>
+                            <p><b>Маршрут: </b>${this.name}</p><br>
+                            <p><b>Зоны отдыха: </b>${this.trip_zone}</p><br>
+                            <p><b>Дата начала тура: </b>${this.first_date.toLocaleDateString()}</p><br>
+                            <p><b>Дата окончания тура: </b>${this.last_date.toLocaleDateString()}</p><br>
+                            <p><b>Количество участников: </b>${this.count}</p><br>
+                            <p><b>Уровень подготовки: </b>${this.level}</p></div>`      
+                }
+            
+            }
+            class ZoneDataBase {
+                ZoneList = [];
+                constructor() { }
+                append(ChoiceZone) {
+                    this.ZoneList.push(ChoiceZone);
+                }
+                
+                search(zoneid) {
+                    var searchlist;
+                    searchlist = this.ZoneList.filter(a => a.id.includes(zoneid))
+                    console.log(searchlist)
+                    return searchlist
+                
+                }
+                search_full(zoneid){
+                    var searchlist;
+                    searchlist = this.ZoneList.sort();
+                    return searchlist;
+                }
+                
+            }
+            var element;
+            const urlParams = new URLSearchParams(window.location.search);
+            //База маршрутов
+            
+            const zone3 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Базовый", "ruskeala", "Для тех, кто устал сидеть дома" , 'Приозерск (крепость Корела), горный парк "Рускеала" ', '<b>Средневековая Корела</b> - главная достопримечательность города Приозерска. Она была построена в 13 веке новгородцами на острове, посреди порожистой живописной реки Вуоксы.</p> <p><b>В горном парке</b> Вас ожидает знакомство с парком, где вы увидите потаенные уголки бывшего мраморного карьера, пройдете по таинственным штольням и штрекам. Здесь создана инфраструктура для пеших прогулок и самого разнообразного отдыха. Искусственно затопленная территория карьера восхищает, а уникальный горный парк манит путешественников мерцанием мраморных утесов в изумрудной глади озера и живописными эко-тропами</p>', '<img class="seat-image" src="priozersk.jpeg" width="100%">', '<img class="seat-image" src="ruskeala.jpeg" width="100%">' , '<img class="seat-image" src="ruskealakanion.jpeg" width="100%">' , 'ruskeala_light', 11000);
+            const zone4 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Базовый", "ruskeala", "Для тех, кто хочет немного больше" , 'Крепость Корела, Лютеранская кирха Лахденпохья и водопады Ахвенкоски ', '<p>С лютеранской <b>кирхой в г. Лахденпохья</b> мы познакомимся в ходе трассовой экскурсии. Когда-то это был самый большой лютеранский храм в Карелии, освященный в 1851 году.</p><p><b>Ахвенкоски</b> — это великолепный комплекс, состоящий из четырех водопадов, расположенный в месте разлива реки Тохмайоки. Их высота составляет в среднем 3-4 метра. У водопадов разное настроение — каменистые перекаты с хаотичными валами и классические, круто падающие локальные спуски впечатляют всех, кто приходит к ним.</p>', '<img class="seat-image" src="ruskealakorela.jpeg" width="100%">', '<img class="seat-image" src="karelianfall.jpeg" width="100%">', '<img class="seat-image" src="ruskealakirha.jpeg" width="100%">', 'ruskeala_medium', 13000);
+            const zone5 = new ChoiceZone("Карелия", "Горный парк Рускеала", "Путешествие к жемчужине Карелии - мраморному каньону Рускеала, поражающему своей красотой." , new Date('2023-07-02'), new Date('2023-07-05'), 20, "Базовый", "ruskeala", "Для настоящих путешественников" ,  'Крепость Корела, Лютеранская кирха Лахденпохья и водопады Ахвенкоски, горный парк Рускеала и Сортавала', '<p>Горный парк «Рускеала» — туристическая мекка, появившаяся на месте заброшенного мраморного месторождения. Это рукотворный памятник великому труду горных мастеров, окруженный первозданной карельской природой и хранящий трехвековую историю взаимодействия человека и камня.</p><p><b>Мраморный каньон</b> замечательно подходит для знакомства с парком. Гостей ждёт главная локация парка - мраморные склоны каньона. Пройдите в "Сухой штольне" и наглядно познакомьтесь с историей горного дела. На маршруте открыта мастерская по камнеобработке. Гости могут наблюдать за работой мастера и приобрести авторские сувениры.</p>', '<img class="seat-image" src="" width="100%">', '<img class="seat-image" src="" width="100%">', '<img class="seat-image" src="" width="100%">', 'ruskeala_strong', 15000);
+            const zone = new ChoiceZone("", )
+            const zone6 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для тех, кто устал сидеть дома" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово и ночевка в палатках', '<p>Встреча на ж/д вокзале г. Петрозаводска и отправление на автобусе на нашу «полянку» (28 км), где упаковываем личные вещи по гермомешкам, подбираем экипировку, проходим инструктаж и немного перекусим. Далее едем ещё 35 км до д. Киндасово, перед выходом на воду ещё один технический инструктаж и вперёд! Небольшое тренировочное занятие уже на воде. В этот день можно освоить технику гребли т. к. по ходу встретится всего один несложный порог, после нескольких километров стоянка, ужин у костра, ночёвка в палатках</p>', '<img class="seat-image" src="shuya11.jpeg" width="100%">', '<img class="seat-image" src="shuya12.jpeg" width="100%">', '<img class="seat-image" src="shuya13.jpeg" width="100%">', 'shuya_light', 7500);
+            const zone7 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для тех, кто хочет немного больше" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово, ночевка в палатках и преодоление сложных порогов на второй день путешествия', '<p>Начинаются хорошие пороги (верхняя и нижняя «Площадка» (1 к. с.), 2-километровый порог «Юманишки» 1 к. с.), через 1 км самый главный порог «Большой Толли» (2 к. с.) в пос. Матросы, на котором будем кататься, пока губы не посинеют. Перекус. До финиша 5 км и 1 порог.В 17:00 подъедет автобус и отвезёт на ж/д вокзал г. Петрозаводска.</p>', '<img class="seat-image" src="shuya21.jpeg" width="100%">', '<img class="seat-image" src="shuya22.jpeg" width="100%">', '<img class="seat-image" src="shuya23.jpeg" width="100%">', 'shuya_medium', 8500);
+            const zone8 = new ChoiceZone("Карелия", "Два дня на реке Шуя", "Сплав по реке нижняя Шуя рекомендован для новичков, желающих впервые испытать себя на сплаве. Во время тура выходного дня, вы пройдёте 7 порогов 1 и 2 категории сложности, которые абсолютно безопасны для жизни.", new Date('2023-08-02'), new Date('2023-08-03'),15,"Легкий", "shuya", "Для настоящих путешественников" ,  'Встреча на ж/д вокзале г. Петрозаводска, речное путешествие от д. Киндасово, ночевка в палатках, преодоление сложных порогов на второй день путешествия и настоящая финская баня', '<p>Маршрут включает в себя не только тренинг и сложные пороги, но и прекрасное завершение такого речного путешествия - походом в финскую баню! Возвращение домой переносится с 17:00 на 21:00</p>', '<img class="seat-image" src="shuya31.jpeg" width="100%">', '<img class="seat-image" src="shuya32.jpeg" width="100%">', '<img class="seat-image" src="shuya33.jpeg" width="100%">', 'shuya_strong', 9500);
+
+            const zoneList = new ZoneDataBase();
+            zoneList.append(zone3);
+            zoneList.append(zone4);
+            zoneList.append(zone5);
+            zoneList.append(zone6);zoneList.append(zone7);zoneList.append(zone8);
+            
+            addEventListener("load", function () {
+                var currentLocation = decodeURI(window.location.href);
+                    
+                if (currentLocation.includes('?')){
+                    var zoneid = decodeURI(urlParams.get("zoneid").toString());
+                    var zone = zoneList.search(zoneid);
+                
+                    if (zone.length == 0){
+                        var message = "Ваш лист бронирования пуст. Вернитесь на главную страницу";
+                        document.getElementById("demo").innerHTML += message;
+                    }
+                    else if (zone != undefined) {
+                        zone.forEach(e => e.show("demo"));
+                        zone.forEach(e => e.showprice("price"));
+                    }
+                }   
+                else {
+                    var zone = zoneList.search_full();
+                    if (zone != undefined) {
+                        var message = "Ваш лист бронирования пуст. Вернитесь на главную страницу";
+                        document.getElementById("demo").innerHTML += message;
+                    }
+                   
+                        }
+                }
+                )
+            
+                            
+        </script>
+
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-item">
+                        <h6>Кит Сервис. Исполнить мечты - просто!</h6><br>
+                        <p class="text-justify">Предлагаем Вам множество увлекательных туров по России и зарубежью, 
+                            подберем для Вас лучшие варианты отдыха, организуем для Вас индивидуальные или 
+                            групповые классические и экскурсионные туры.</p>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Контакты</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="tel:+74232758572">+7 (423) 275-8-572</a></li>
+                            <li><a href="mailto:studio_kiss@mail.ru">studio_kiss@mail.ru</a></li>
+                            <li><a>г.Владивосток, ул. Калинина 275В, ТЦ "Зеленый Остров" 2-ой корпус, 6 этаж</a>
+                            </li>
+                            <li><a>Ежедневно: 9:00 - 19:00</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-item">
+                        <h6>Ищите нас в соцсетях</h6><br>
+                        <ul class="footer-links">
+                            <li><a href="https://www.instagram.com/studio_kiss_vdk/">Instagram</a></li>
+                            <li><a href="https://vk.com/studio_kiss_vdk">VK</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCE2nvN2hpGxqrQF68eJjTDQ">Youtube</a></li>
+                            <li><a href="https://t.me/school_studiokiss">Telegram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </footer>
+        <style>
+            .col-item {
+
+                display: inline-block;
+                width: 30%;
+                vertical-align: top;
+                margin-right: 1%;
+                margin-left: 2%;
+                font-size: 14px;
+                padding: 40px;
+            }
+
+            .site-footer {
+                background-color: #26272b;
+                padding: 45px 0 20px;
+                font-size: 15px;
+                line-height: 24px;
+                color: #737373;
+
+            }
+
+            .site-footer hr.small {
+                margin: 20px 0
+            }
+
+            .site-footer h6 {
+                color: #fff;
+                font-size: 16px;
+                text-transform: uppercase;
+                margin-top: 5px;
+                letter-spacing: 2px
+            }
+
+            .site-footer a {
+                color: #737373;
+            }
+
+            .site-footer a:hover {
+                color: #b89dd8;
+                text-decoration: none;
+            }
+
+            .footer-links {
+                padding-left: 0;
+                list-style: none;
+
+            }
+
+            .footer-links li {
+                display: block
+            }
+
+            .footer-links a {
+                color: #737373;
+                text-decoration: none;
+            }
+
+            .footer-links a:active,
+            .footer-links a:focus,
+            .footer-links a:hover {
+                color: #c2a9d9;
+                text-decoration: none;
+            }
+
+            .footer-links.inline li {
+                display: inline-block
+            }
+
+
+            @media (max-width:991px) {
+                .site-footer [class^=col-] {
+                    margin-bottom: 30px
+                }
+            }
+
+            @media (max-width:767px) {
+                .site-footer {
+                    padding-bottom: 0
+                }
+
+                .site-footer .copyright-text,
+                .site-footer .social-icons {
+                    text-align: center
+                }
+            }
+        </style>
+    </body>
+</html>
